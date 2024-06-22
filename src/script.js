@@ -8,6 +8,7 @@ const gui = new GUI().title('Particles');
 
 //======================= Textures =====================
 const textureLoader = new THREE.TextureLoader();
+const particlesTexture = textureLoader.load('./textures/particles/2.png');
 
 //===================== Particles ======================
 const particlesGeometry = new THREE.BufferGeometry();
@@ -27,7 +28,12 @@ particlesGeometry.setAttribute(
 const particlesMaterial = new THREE.PointsMaterial({
   size: 0.1,
   sizeAttenuation: true,
-  color: '#ff88cc',
+  color: '#fdbc08',
+  alphaMap: particlesTexture,
+  transparent: true,
+  // alphaTest: 0.001,  // Explain below ↓ 
+  // depthTest: false,
+  depthWrite: false,
 });
 
 //=== Points
@@ -79,3 +85,48 @@ const tick = () => {
 };
 
 tick();
+
+/*
+1. depthWrite
+  - Functionality: 
+    The depthWrite property determines whether or not the material writes its depth information to the depth buffer.
+
+  - Default Value: true
+
+  - Explanation: 
+    When depthWrite is set to false, the material does not write to the depth buffer. 
+    This means that objects using this material "will not affect the depth of the scene", and thus, they won't occlude other objects rendered after them. 
+
+    This is useful for rendering transparent or semi-transparent objects where depth sorting is manually handled or where you don't want these objects to obscure others.
+
+
+
+2. depthTest
+  - Functionality: 
+    The depthTest property determines whether or not the material is tested against the depth buffer when rendering.
+
+  - Default Value: true
+
+
+  - Explanation: 
+    When depthTest is set to false, the material "bypasses the depth test". 
+    
+    This means that the objects with this material "will always be rendered regardless of their depth values compared to other objects". 
+    This can be useful for HUDs, overlays, or other scenarios where you need certain objects to render on top of everything else without being occluded by other objects.
+
+
+
+3. alphaTest
+  - Functionality: 
+    The alphaTest property sets a threshold for discarding pixels based on their alpha value.
+
+  - Default Value: 0
+
+  - Explanation: 
+    When a pixel's alpha value is less than the alphaTest threshold, the pixel is discarded (i.e., not rendered). 
+    
+    This is useful for creating materials with transparency where you want to "discard fully transparent parts" and "keep the rest". 
+    
+    For example, if you have a texture with some transparent areas and you want to avoid rendering those areas, you set a small alphaTest value. 
+    In this case, alphaTest: 0.001 means any pixel with an alpha value less than 0.001 will be discarded.
+*/
