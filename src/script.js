@@ -40,7 +40,7 @@ const particlesMaterial = new THREE.PointsMaterial({
   depthWrite: false,
   blending: THREE.AdditiveBlending, // will impact the performances
 
-  vertexColors: true,
+  vertexColors: true, // enable colorizing
 });
 
 //=== Points
@@ -85,6 +85,20 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+
+  for (let i = 0; i < count; i++) {
+    const i3 = i * 3; // each vertex contains "x, y, z"
+
+    const x = particlesGeometry.attributes.position.array[i3];
+
+    // Simulate a wave-pattern on "Y" axises - creating an offset on "X" axises
+    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(
+      elapsedTime + x
+    );
+  }
+
+  // Update Particles
+  particlesGeometry.attributes.position.needsUpdate = true;
 
   controls.update();
   renderer.render(scene, camera);
