@@ -12,28 +12,35 @@ const particlesTexture = textureLoader.load('./textures/particles/2.png');
 
 //===================== Particles ======================
 const particlesGeometry = new THREE.BufferGeometry();
-const count = 5000;
+const count = 20000;
 
 const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
 
 for (let i = 0; i < count * 3; i++) {
   positions[i] = (Math.random() - 0.5) * 10;
+
+  colors[i] = Math.random();
 }
 
 particlesGeometry.setAttribute(
   'position',
   new THREE.BufferAttribute(positions, 3)
 );
+particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
 const particlesMaterial = new THREE.PointsMaterial({
   size: 0.1,
   sizeAttenuation: true,
-  color: '#fdbc08',
+  // color: '#fdbc08',
   alphaMap: particlesTexture,
   transparent: true,
-  // alphaTest: 0.001,  // Explain below ↓ 
+  // alphaTest: 0.001,  // Explain below ↓
   // depthTest: false,
   depthWrite: false,
+  blending: THREE.AdditiveBlending, // will impact the performances
+
+  vertexColors: true,
 });
 
 //=== Points
