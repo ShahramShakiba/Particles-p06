@@ -9,12 +9,16 @@ const gui = new GUI().title('Particles');
 //======================= Textures =====================
 const textureLoader = new THREE.TextureLoader();
 
-//======================= Objects ======================
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial()
-);
-scene.add(cube);
+//===================== Particles ======================
+const particlesGeometry = new THREE.SphereGeometry(1, 32, 32);
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.02,
+  sizeAttenuation: true, // far from the camera = small | near = big
+});
+
+//=== Points
+const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particles);
 
 //====================== Camera =======================
 let width = window.innerWidth;
