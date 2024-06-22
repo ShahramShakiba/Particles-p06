@@ -11,7 +11,8 @@
 
 ### Introduction to Particles
 - Particles are small, individual elements that can be used to create effects like ` smoke `, ` fire `, ` rain `, ` snow `, ` stars `, ` dust ` and other phenomena that involve many small elements interacting in a visually interesting way. <br/> 
-- Particles are often used to simulate systems where it would be _impractical_ or _inefficient_ to use traditional 3D models. <br/><br/>
+- Particles are often used to simulate systems where it would be _impractical_ or _inefficient_ to use traditional 3D models.
+- The good thing with particles is that you can have hundreds of thousands of them on screen with a reasonable frame rate. <br/> The downside is that each particle is composed of a plane (two triangles) always facing the camera. <br/><br/>
 
 ### Why Do We Need Particles?
 Particles are crucial in creating realistic and dynamic effects in 3D scenes. They help in:
@@ -21,18 +22,47 @@ Particles are crucial in creating realistic and dynamic effects in 3D scenes. Th
 2. _Creating Visual Effects_ :
    - Explosions, magic spells, and other special effects.
 3. _Adding Detail_ :
-   - Enhancing the visual richness of a scene without heavy computational costs. <br/><br/>
+   - Enhancing the visual richness of a scene without heavy computational costs. <br/><br/><br/>
   
 ### How Particles Work in Three.js
 In Three.js, particles are usually created using Points. A particle system involves:
 
-1. _Geometry_:
+### 1. _`Geometry:`_ 
    - Defines the positions of particles.
-2. _Material_:
-   - Defines how particles look (color, texture, size).
-3. _Points_:
-   - Combines the geometry and material to create the particle system.
+~~~~ html
+const particlesGeometry = new THREE.BufferGeometry();
+const count = 5000;
 
+const positions = new Float32Array(count * 3);
+
+for (let i = 0; i < count * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 10;
+}
+
+particlesGeometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(positions, 3)
+);
+~~~~
+<br/>
+
+### 2. _`Material:`_
+   - Defines how particles look (color, texture, size).
+~~~~ html
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.01,
+  sizeAttenuation: true,
+  color: '#fdbc08',
+});
+~~~~
+<br/>
+
+### 3. _`Points:`_
+   - Combines the geometry and material to create the particle system.
+~~~~ html
+const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particles);
+~~~~
 <br/><br/>
 
 <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Eyes.png" alt="Eyes" width="25" height="25" /> Feel free to delve into the code as it has been written in a straightforward manner for easy understanding.
@@ -44,29 +74,13 @@ In Three.js, particles are usually created using Points. A particle system invol
 >> - By understanding the basic components—geometry, material, and points — you can build complex and dynamic particle systems to enhance your 3D scenes.
 >> - Experiment with different properties and techniques to achieve the desired effects and bring your scenes to life.
 
-
-<br/><br/>
-
-> _Which Concepts Have I Covered_: <br/>
-
-01. _<h4>...</h4>_
-02. _<h4>...</h4>_
-03. _<h4>...</h4>_
-04. _<h4>...</h4>_
-05. _<h4>...</h4>_
-
  
 <br/><br/>
 
-<!-------- try it live -------->
-#### _Give it a go in real-time and give me a Star_ &nbsp; <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" alt="Glowing Star" width="25"  /> <a href="" target="_blank"> &nbsp; _Particles_ </a> 
-
-<br/>
-
 <!--------- Video --------->
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Objects/Clapper%20Board.webp" alt="Clapper Board" width="35" />
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Objects/Clapper%20Board.webp" alt="Clapper Board" width="35" /> &nbsp; Simulate 20000 Prticles in a Wave pattern
 
-
+https://github.com/ShahramShakiba/Particles-Threejs-p06/assets/110089830/392eff23-2b1c-4173-af68-c248666ced0b
 
   <br/> 
 
