@@ -10,10 +10,24 @@ const gui = new GUI().title('Particles');
 const textureLoader = new THREE.TextureLoader();
 
 //===================== Particles ======================
-const particlesGeometry = new THREE.SphereGeometry(1, 32, 32);
+const particlesGeometry = new THREE.BufferGeometry();
+const count = 5000;
+
+const positions = new Float32Array(count * 3);
+
+for (let i = 0; i < count * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 10;
+}
+
+particlesGeometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(positions, 3)
+);
+
 const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.02,
-  sizeAttenuation: true, // far from the camera = small | near = big
+  size: 0.1,
+  sizeAttenuation: true,
+  color: '#ff88cc',
 });
 
 //=== Points
