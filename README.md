@@ -75,7 +75,7 @@ scene.add(particles);
 >> - Experiment with different properties and techniques to achieve the desired effects and bring your scenes to life.
 
  
-<br/><br/>
+<br/><br/> 
 
 <!--------- Video --------->
 <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Objects/Clapper%20Board.webp" alt="Clapper Board" width="35" /> &nbsp; Simulate 20000 Prticles in a Wave pattern
